@@ -1,0 +1,680 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Surprise | Gentleman</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Dancing+Script:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cream: #f8f0e5;
+  --paper: #fffaf0;
+  --gold: #c39a63;
+  --darkgold: #936b43;
+  --brown: #60452f;
+  --mocha: #8e6745;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top, #fff9ef 0%, transparent 65%),
+    linear-gradient(145deg, #ead9c6, #f8eee2, #e7d3bd);
+  color: var(--brown);
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .22;
+  background-image: radial-gradient(#a98762 0.7px, transparent 0.7px);
+  background-size: 17px 17px;
+}
+
+/* WELCOME SCREEN */
+
+.welcome {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 25px 15px;
+  transition: opacity .8s ease, transform .8s ease;
+}
+
+.welcome.hide {
+  opacity: 0;
+  transform: scale(.92);
+  pointer-events: none;
+}
+
+.welcome-inner {
+  width: 100%;
+  max-width: 400px;
+}
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--darkgold);
+  margin-bottom: 13px;
+}
+
+.welcome h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(43px, 12vw, 62px);
+  font-weight: 600;
+  line-height: 1;
+  color: #64482f;
+}
+
+.welcome-subtitle {
+  font-size: 11px;
+  line-height: 2;
+  color: #927b65;
+  margin-top: 15px;
+}
+
+/* GIFT BOX */
+
+.gift-scene {
+  width: 230px;
+  height: 230px;
+  margin: 30px auto 20px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  perspective: 900px;
+}
+
+.gift-box {
+  width: 185px;
+  height: 125px;
+  position: relative;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 18px 15px #72523935);
+}
+
+.box-body {
+  position: absolute;
+  bottom: 0;
+  width: 185px;
+  height: 112px;
+  border-radius: 4px 4px 9px 9px;
+  background: linear-gradient(135deg, #b98c5e, #94643d 65%, #79502f);
+  overflow: hidden;
+}
+
+.box-body::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 28px;
+  left: 78px;
+  background: linear-gradient(90deg, #f2d6a1, #e5bd7d);
+}
+
+.box-body::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 23px;
+  top: 43px;
+  background: linear-gradient(90deg, #e6c28d, #f5dfb5, #d6ad73);
+}
+
+.box-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 25%, #ffffff24 45%, transparent 60%);
+}
+
+.box-lid {
+  position: absolute;
+  z-index: 5;
+  width: 205px;
+  height: 39px;
+  left: -10px;
+  top: 4px;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #d5b17d, #a7784b 80%);
+  box-shadow: 0 5px 9px #67472c40;
+  transform-origin: left bottom;
+  transition: transform 1.25s cubic-bezier(.2,.75,.25,1);
+}
+
+.box-lid::before {
+  content: "";
+  position: absolute;
+  left: 88px;
+  height: 100%;
+  width: 29px;
+  background: linear-gradient(90deg, #f2d8a7, #e2bd80);
+}
+
+.ribbon {
+  position: absolute;
+  z-index: 6;
+  left: 78px;
+  top: 0;
+  width: 29px;
+  height: 100%;
+  background: linear-gradient(90deg, #f1d8a8, #e3bc7e);
+  pointer-events: none;
+}
+
+.bow {
+  position: absolute;
+  z-index: 8;
+  width: 75px;
+  height: 35px;
+  left: 65px;
+  top: -23px;
+  transition: transform 1.2s ease;
+}
+
+.bow::before,
+.bow::after {
+  content: "";
+  position: absolute;
+  width: 36px;
+  height: 24px;
+  border: 7px solid #f0d4a1;
+  border-radius: 50% 50% 10% 50%;
+}
+
+.bow::before {
+  left: 0;
+  transform: rotate(25deg);
+}
+
+.bow::after {
+  right: 0;
+  transform: rotate(65deg);
+}
+
+.bow-knot {
+  position: absolute;
+  z-index: 9;
+  left: 31px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  background: #f6dfb7;
+  border-radius: 50%;
+}
+
+.gift-box.open .box-lid {
+  transform: translate(-12px, -95px) rotate(-32deg);
+}
+
+.gift-box.open .bow {
+  transform: translate(-12px, -95px) rotate(-32deg);
+}
+
+.gift-box.open {
+  animation: boxReveal .8s ease;
+}
+
+@keyframes boxReveal {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* SPARKLES */
+
+.sparkle {
+  position: absolute;
+  color: #c19458;
+  font-size: 22px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gift-scene.magic .sparkle {
+  animation: sparkle 1.7s ease-out forwards;
+}
+
+.sparkle.one { left: 13px; top: 35px; }
+.sparkle.two { right: 12px; top: 45px; animation-delay: .2s; }
+.sparkle.three { left: 35px; bottom: 20px; animation-delay: .4s; }
+.sparkle.four { right: 32px; bottom: 30px; animation-delay: .6s; }
+.sparkle.five { left: 50%; top: 5px; animation-delay: .8s; }
+
+@keyframes sparkle {
+  0% { opacity: 0; transform: scale(.2) rotate(0deg); }
+  40% { opacity: 1; transform: scale(1.4) rotate(80deg); }
+  100% { opacity: 0; transform: scale(.5) translateY(-35px) rotate(150deg); }
+}
+
+.open-button {
+  border: 1px solid #b68d5e;
+  background: linear-gradient(135deg, #a47a50, #704b30);
+  color: #fff8eb;
+  padding: 15px 29px;
+  border-radius: 35px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 9px 22px #76533335;
+  transition: .3s;
+}
+
+.open-button:active {
+  transform: scale(.96);
+}
+
+.open-button:disabled {
+  opacity: .7;
+}
+
+/* LETTER SCREEN */
+
+.letter-screen {
+  display: none;
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+  padding: 42px 16px 55px;
+  animation: revealLetter 1s ease both;
+}
+
+.letter-screen.show {
+  display: block;
+}
+
+@keyframes revealLetter {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.letter-heading {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.letter-heading .eyebrow {
+  margin-bottom: 8px;
+}
+
+.letter-heading h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 43px;
+  font-weight: 600;
+  color: #694b32;
+}
+
+.letter-heading p {
+  font-size: 10px;
+  color: #987e66;
+  margin-top: 5px;
+  letter-spacing: .5px;
+}
+
+/* PAPER */
+
+.paper {
+  position: relative;
+  padding: 34px 24px 32px;
+  border-radius: 3px;
+  background:
+    linear-gradient(90deg, #eee0c9 0%, #fffaf0 5%, #fffaf0 95%, #eee0c9 100%);
+  box-shadow:
+    0 15px 40px #684a2d24,
+    inset 0 0 35px #d6bd9c26;
+  border: 1px solid #dfc9a9;
+}
+
+.paper::before {
+  content: "";
+  position: absolute;
+  inset: 9px;
+  border: 1px solid #e8d8bd;
+  pointer-events: none;
+}
+
+.paper::after {
+  content: "✧";
+  position: absolute;
+  top: 17px;
+  right: 20px;
+  color: #c4a172;
+  font-size: 20px;
+}
+
+.paper-content {
+  position: relative;
+  z-index: 1;
+}
+
+.dear {
+  font-family: 'Dancing Script', cursive;
+  font-size: 31px;
+  color: #9a704b;
+  margin-bottom: 23px;
+}
+
+.letter-text {
+  font-size: 12px;
+  line-height: 2.05;
+  font-weight: 300;
+  color: #67513e;
+  margin-bottom: 17px;
+  overflow-wrap: break-word;
+}
+
+.section-heading {
+  font-family: 'Dancing Script', cursive;
+  font-size: 27px;
+  color: #986b43;
+  margin: 26px 0 15px;
+}
+
+.signature {
+  font-family: 'Dancing Script', cursive;
+  font-size: 27px;
+  line-height: 1.6;
+  color: #936a45;
+  text-align: right;
+  margin-top: 25px;
+}
+
+.wax-seal {
+  width: 61px;
+  height: 61px;
+  margin: 24px auto 0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 27px;
+  color: #fff0d5;
+  background: radial-gradient(circle at 30% 25%, #d3ac7b, #95633e 75%);
+  box-shadow: 0 5px 12px #79553735;
+  border: 2px solid #e4c397;
+}
+
+.bottom-note {
+  text-align: center;
+  margin-top: 25px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 24px;
+  color: #99724f;
+}
+
+.bottom-hearts {
+  text-align: center;
+  margin-top: 12px;
+  color: #bd9870;
+  letter-spacing: 7px;
+}
+
+@media (min-width: 500px) {
+  .paper {
+    padding: 43px 40px;
+  }
+  .letter-text {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 360px) {
+  .paper {
+    padding: 28px 18px;
+  }
+  .letter-text {
+    font-size: 11px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- WELCOME -->
+
+<section class="welcome" id="welcome">
+  <div class="welcome-inner">
+
+    <div class="eyebrow">A LITTLE SURPRISE FOR YOU</div>
+
+    <h1>Dear Gentleman</h1>
+
+    <p class="welcome-subtitle">
+      Something special, made with care.<br>
+      Just for you. 🤎
+    </p>
+
+    <div class="gift-scene" id="giftScene">
+
+      <div class="gift-box" id="giftBox">
+
+        <div class="box-body">
+          <div class="box-shine"></div>
+        </div>
+
+        <div class="ribbon"></div>
+
+        <div class="box-lid"></div>
+
+        <div class="bow">
+          <div class="bow-knot"></div>
+        </div>
+
+      </div>
+
+      <span class="sparkle one">✦</span>
+      <span class="sparkle two">✧</span>
+      <span class="sparkle three">✦</span>
+      <span class="sparkle four">✧</span>
+      <span class="sparkle five">✦</span>
+
+    </div>
+
+    <button class="open-button" id="openButton">
+      OPEN YOUR LITTLE GIFT ✧
+    </button>
+
+  </div>
+</section>
+
+
+<!-- LETTER -->
+
+<main class="letter-screen" id="letterScreen">
+
+  <div class="letter-heading">
+    <div class="eyebrow">A LITTLE NOTE FROM MY HEART</div>
+    <h2>Just For You ♡</h2>
+    <p>A reminder to keep dreaming and smiling.</p>
+  </div>
+
+  <article class="paper">
+
+    <div class="paper-content">
+
+      <div class="dear">Hey Gentleman! ♡</div>
+
+      <p class="letter-text">
+        You know what? I really hope ki aap apne saare dreams achieve karein.
+        Not just the big ones, but even those little goals jo shayad aapne
+        abhi tak kisi ko bataye bhi nahi hain.
+      </p>
+
+      <p class="letter-text">
+        Mujhe nahi pata aapka future exactly kaisa hoga, but I genuinely
+        wish ki woh aapki expectations se bhi zyada beautiful ho.
+      </p>
+
+      <p class="letter-text">
+        Bas ek baat hamesha yaad rakhiyega, apne career aur dreams ko lekar
+        kabhi khud par doubt mat kijiye. Har successful person ki journey
+        mein difficult days aate hain. Kabhi opportunities late milti hain,
+        kabhi plans work nahi karte, aur kabhi khud par bhi doubt hone
+        lagta hai. But that doesn't mean you're not capable.
+      </p>
+
+      <p class="letter-text">
+        Aap bas seekhte rahiye, grow karte rahiye aur apni mehnat jaari
+        rakhiye. Kisi aur ki speed se apni journey compare mat kijiye.
+        Aapka time bhi aayega, In Sha Allah. Aur jab aaye na, toh apni
+        success ko enjoy karna mat bhooliyega… chahe us waqt main aapke
+        saath rahun ya nahi.
+      </p>
+
+      <p class="letter-text">
+        Aur suniyega, sirf successful hi nahi, happy bhi rehna hai.
+        Career important hai, lekin aapka sukoon aur health bhi utne hi
+        important hain. So please, apna khayal rakha kijiye. Thoda rest,
+        thodi masti aur woh cute si smile bhi maintain rakhiye.
+        Itna serious hokar duniya nahi jeetni. :')
+      </p>
+
+      <div class="section-heading">
+        And there's something I want you to know...
+      </div>
+
+      <p class="letter-text">
+        Aapki life mein chahe kitne bhi naye chapters aayein, kahin ek
+        jagah koi hai jo aapke liye genuinely bahut achha chahti hai.
+      </p>
+
+      <p class="letter-text">
+        Koi hai jo Allah se dua karti hai ki aapko woh opportunities
+        milein jinke aap deserve karte hain. Aapki mehnat kabhi waste na
+        ho. Aapke liye career ke doors open hon, aapke decisions mein
+        khair ho aur aapko har us jagah success mile jahan aap apna
+        best de rahe hain.
+      </p>
+
+      <p class="letter-text">
+        Aur jab kabhi aapka din achha na ho, tab bhi aapki khairiyat
+        ki dua karne wala koi hai. Jab aap kisi goal ke kareeb pahunchein,
+        toh aapki khushi ke liye khush hone wala bhi koi hai.
+      </p>
+
+      <p class="letter-text">
+        Maybe aapko har baar iska ehsaas na ho, but your happiness
+        genuinely matters to someone.
+      </p>
+
+      <div class="section-heading">
+        My little wish for you:
+      </div>
+
+      <p class="letter-text">
+        Ek din aap apni favourite life jee rahe honge. Aapke paas aapki favourite car hogi, jiske passenger seat par aapki Hoor-e-Pareshan aapke saath baithkar long drive par jaayegi. Aap kisi Big 4 company mein honge, apne career mein woh position achieve kar chuke honge jiske liye aaj mehnat kar rahe hain, aur jab peeche mudkar dekhenge, toh apni poori journey par proud feel karenge.
+      </p>
+
+      <p class="letter-text">
+        May Allah bless your efforts, protect your dreams, make your
+        difficult paths easier and give you success that comes with
+        peace. Ameen. 🤍
+      </p>
+
+      <p class="letter-text">
+        So, Gentleman, keep going. Don't give up on yourself.
+        Aap mein bahut potential hai, bas khud par bharosa banaye rakhiye.
+      </p>
+
+      <p class="letter-text">
+        And yes, jab bhi koi achhi news mile na, toh smile zaroor karna.
+        Kuch log hain jo aapki good news sunkar aapse bhi zyada
+        khush honge. ♡
+      </p>
+
+      <div class="signature">
+        Always making duas for your happiness and success,<br><br>
+        Your Hoor-e-Pareshan. 🤎
+      </div>
+
+    </div>
+
+  </article>
+
+  <div class="wax-seal">G</div>
+
+  <div class="bottom-note">
+    Keep smiling, Gentleman. ♡
+  </div>
+
+  <div class="bottom-hearts">
+    ✧ ♡ ✧
+  </div>
+
+</main>
+
+
+<script>
+const openButton = document.getElementById("openButton");
+const giftBox = document.getElementById("giftBox");
+const giftScene = document.getElementById("giftScene");
+const welcome = document.getElementById("welcome");
+const letterScreen = document.getElementById("letterScreen");
+
+openButton.addEventListener("click", function() {
+
+  // Prevent multiple clicks
+  if (openButton.disabled) return;
+
+  openButton.disabled = true;
+  openButton.textContent = "OPENING YOUR SURPRISE...";
+
+  // Open the gift box
+  giftBox.classList.add("open");
+
+  // Golden sparkles
+  giftScene.classList.add("magic");
+
+  // Show the letter after the box opens
+  setTimeout(function() {
+
+    welcome.classList.add("hide");
+
+    setTimeout(function() {
+
+      welcome.style.display = "none";
+      letterScreen.classList.add("show");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }, 500);
+
+  }, 1250);
+
+});
+</script>
+
+</body>
+</html>
